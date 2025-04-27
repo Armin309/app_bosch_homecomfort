@@ -1,0 +1,12 @@
+name: app_bosch_homecomfort_env
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - psycopg2
+  - pandas
+  - numpy
+  - pyyaml
+  - matplotlib
+  - jupyter
+  - ipykernel
