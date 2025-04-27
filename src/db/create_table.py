@@ -17,11 +17,11 @@ from file_interaction.source_config import (
 def create_all_tables():
     """
     Erstellt die Tabellen für ein vollständiges Data Vault Modell:
-    - 3 Hubs: sales_order, customer, material
-    - 1 Link: sales_order_customer_material
-    - 3 Satelliten: sales_order_details, customer_info, material_info
+    - 3 Hubs: customer, material, sales_doc
+    - 1 Link: transaction
+    - 4 Satelliten: sat_material, sat_sale_doc_attributes, sat_transaction_VVR, sat_customer
     """
-
+############################### vergiss nicht die VVR ZU ERGÄNZEN!!!!!!!
     # Verbindung zur Datenbank aufbauen
     try:
         conn = psycopg2.connect(
@@ -43,74 +43,95 @@ def create_all_tables():
 
         # HUBs
         """
-        CREATE TABLE IF NOT EXISTS public.hub_sales_order (
-            sales_order_id VARCHAR PRIMARY KEY,
-            load_date TIMESTAMP NOT NULL,
-            record_source VARCHAR NOT NULL
-        );
-        """,
-        """
         CREATE TABLE IF NOT EXISTS public.hub_customer (
-            customer_id VARCHAR PRIMARY KEY,
-            load_date TIMESTAMP NOT NULL,
-            record_source VARCHAR NOT NULL
+            customer_no_HK SERIAL PRIMARY KEY,
+            customer_no VARCHAR(50) NOT NULL UNIQUE,
+            load_date DATE NOT NULL,
+            record_src CHAR(50) NOT NULL
         );
         """,
         """
         CREATE TABLE IF NOT EXISTS public.hub_material (
-            material_id VARCHAR PRIMARY KEY,
-            load_date TIMESTAMP NOT NULL,
-            record_source VARCHAR NOT NULL
+            material_id_HK SERIAL PRIMARY KEY,
+            material_id INT NOT NULL UNIQUE,
+            load_date DATE NOT NULL,
+            record_src CHAR(50) NOT NULL
+        );
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS public.hub_sales_doc (
+            sales_doc_HK SERIAL PRIMARY KEY,
+            sales_document CHAR(50) NOT NULL UNIQUE,
+            load_date DATE NOT NULL,
+            record_src CHAR(50) NOT NULL
         );
         """,
 
         # LINK
         """
-        CREATE TABLE IF NOT EXISTS public.link_sales_order_customer_material (
-            link_id SERIAL PRIMARY KEY,
-            sales_order_id VARCHAR NOT NULL,
-            customer_id VARCHAR NOT NULL,
-            material_id VARCHAR NOT NULL,
-            load_date TIMESTAMP NOT NULL,
-            record_source VARCHAR NOT NULL,
-            FOREIGN KEY (sales_order_id) REFERENCES public.hub_sales_order(sales_order_id),
-            FOREIGN KEY (customer_id) REFERENCES public.hub_customer(customer_id),
-            FOREIGN KEY (material_id) REFERENCES public.hub_material(material_id)
+        CREATE TABLE IF NOT EXISTS public.link_transaction (
+            transaction_id_HK SERIAL PRIMARY KEY,
+            customer_id_HK INT NOT NULL,
+            sales_doc_HK INT NOT NULL,
+            material_id_HK INT NOT NULL,
+            load_date DATE NOT NULL,
+            record_src CHAR(50) NOT NULL,
+            UNIQUE (sales_doc_HK, customer_id_HK, material_id_HK),
+            FOREIGN KEY (customer_id_HK) REFERENCES public.hub_customer(customer_no_HK),
+            FOREIGN KEY (sales_doc_HK) REFERENCES public.hub_sales_doc(sales_doc_HK),
+            FOREIGN KEY (material_id_HK) REFERENCES public.hub_material(material_id_HK)
         );
         """,
 
         # SATELLITEN
         """
-        CREATE TABLE IF NOT EXISTS public.sat_sales_order_details (
-            sales_order_id VARCHAR NOT NULL,
-            order_date DATE,
-            amount NUMERIC,
-            load_date TIMESTAMP NOT NULL,
-            record_source VARCHAR NOT NULL,
-            PRIMARY KEY (sales_order_id, load_date),
-            FOREIGN KEY (sales_order_id) REFERENCES public.hub_sales_order(sales_order_id)
+        CREATE TABLE IF NOT EXISTS public.sat_material (
+            sat_material_id_HK SERIAL PRIMARY KEY,
+            material_id_HK INT NOT NULL,
+            material_text CHAR(50) NOT NULL,
+            SPRAS CHAR(50) NOT NULL,
+            load_date DATE NOT NULL,
+            record_src CHAR(50) NOT NULL,
+            UNIQUE (material_id_HK, load_date),
+            FOREIGN KEY (material_id_HK) REFERENCES public.hub_material(material_id_HK)
         );
         """,
         """
-        CREATE TABLE IF NOT EXISTS public.sat_customer_info (
-            customer_id VARCHAR NOT NULL,
-            customer_name VARCHAR,
-            region VARCHAR,
-            load_date TIMESTAMP NOT NULL,
-            record_source VARCHAR NOT NULL,
-            PRIMARY KEY (customer_id, load_date),
-            FOREIGN KEY (customer_id) REFERENCES public.hub_customer(customer_id)
+        CREATE TABLE IF NOT EXISTS public.sat_sale_doc_attributes (
+            sat_sale_doc_attributes_HK SERIAL PRIMARY KEY,
+            sales_doc_HK INT NOT NULL,
+            distribution_channel CHAR(50) NOT NULL,
+            sales_organization CHAR(50) NOT NULL,
+            billing_doc_date CHAR(50) NOT NULL,
+            sales_group CHAR(50) NOT NULL,
+            PALEDGER CHAR(50) NOT NULL,
+            load_date DATE NOT NULL,
+            record_src CHAR(50) NOT NULL,
+            UNIQUE (sales_doc_HK, load_date),
+            FOREIGN KEY (sales_doc_HK) REFERENCES public.hub_sales_doc(sales_doc_HK)
         );
         """,
         """
-        CREATE TABLE IF NOT EXISTS public.sat_material_info (
-            material_id VARCHAR NOT NULL,
-            material_text VARCHAR,
-            category VARCHAR,
-            load_date TIMESTAMP NOT NULL,
-            record_source VARCHAR NOT NULL,
-            PRIMARY KEY (material_id, load_date),
-            FOREIGN KEY (material_id) REFERENCES public.hub_material(material_id)
+        CREATE TABLE IF NOT EXISTS public.sat_customer (
+            sat_customer_id_HK SERIAL PRIMARY KEY,
+            customer_no_HK INT NOT NULL,
+            customer_name CHAR(50) NOT NULL,
+            load_date DATE NOT NULL,
+            record_src CHAR(50) NOT NULL,
+            UNIQUE (customer_no_HK, load_date),
+            FOREIGN KEY (customer_no_HK) REFERENCES public.hub_customer(customer_no_HK)
+        );
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS public.sat_transaction_VVR (
+            sat_transaction_VVR_id_HK SERIAL PRIMARY KEY,
+            transaction_id_HK INT NOT NULL,
+            VVR03 FLOAT NOT NULL,
+            VVR05 FLOAT NOT NULL,
+            load_date DATE NOT NULL,
+            record_src CHAR(50) NOT NULL,
+            UNIQUE (transaction_id_HK, load_date),
+            FOREIGN KEY (transaction_id_HK) REFERENCES public.link_transaction(transaction_id_HK)
         );
         """
     ]
@@ -127,3 +148,7 @@ def create_all_tables():
     cursor.close()
     conn.close()
     print("🔒 Verbindung geschlossen.")
+
+if __name__ == "__main__":
+    create_all_tables()
+
