@@ -52,3 +52,6 @@ This tool is designed to set up and manage a PostgreSQL database for Bosch HomeC
 ## Notes
 - Ensure the `sales_data.csv` file is present in the `data` folder.
 - The tool is designed to handle errors gracefully and provide meaningful feedback during execution.
+
+## License
+This project and its contents are proprietary and confidential. Unauthorized copying, distribution, or modification of this code, via any medium, is strictly prohibited. All rights reserved by Armin Thies.
