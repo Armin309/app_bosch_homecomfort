@@ -702,10 +702,10 @@
         <mxCell id="c42nW5d7UT0iTf5s_PNG-286" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Data Vault&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="1010" y="90" width="180" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="c42nW5d7UT0iTf5s_PNG-287" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Business Layer&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;as materialized view in PostgreSQL&lt;br&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;(added PALEDGER for filtering check)&lt;/font&gt;&lt;/span&gt;&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+        <mxCell id="c42nW5d7UT0iTf5s_PNG-287" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Business Layer&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;br&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;(added PALEDGER for filtering check)&lt;/font&gt;&lt;/span&gt;&lt;/h1&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="790" y="960" width="180" height="300" as="geometry" />
         </mxCell>
-        <mxCell id="c42nW5d7UT0iTf5s_PNG-288" value="sales_summary_mv" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;" parent="1" vertex="1">
+        <mxCell id="c42nW5d7UT0iTf5s_PNG-288" value="sales_summary_mv (helper table)" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;" parent="1" vertex="1">
           <mxGeometry x="470" y="970" width="280" height="340" as="geometry" />
         </mxCell>
         <mxCell id="c42nW5d7UT0iTf5s_PNG-295" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;" parent="c42nW5d7UT0iTf5s_PNG-288" vertex="1">
@@ -836,6 +836,21 @@
         <mxCell id="c42nW5d7UT0iTf5s_PNG-348" value="PALEDGER" style="shape=partialRectangle;overflow=hidden;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;" parent="c42nW5d7UT0iTf5s_PNG-346" vertex="1">
           <mxGeometry x="30" width="250" height="30" as="geometry">
             <mxRectangle width="250" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gwTOt4JJbi1zzJFp0UhO-1" value="Unpivot KPI as Matrialized View" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="457" y="1400" width="310" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gwTOt4JJbi1zzJFp0UhO-2" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="618.06" y="1324" as="sourcePoint" />
+            <mxPoint x="618" y="1384" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gwTOt4JJbi1zzJFp0UhO-3" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="619.3499999999999" y="905" as="sourcePoint" />
+            <mxPoint x="619.29" y="965" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>

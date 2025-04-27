@@ -81,6 +81,3 @@ def create_materialized_view_unpivoted_sales():
             cursor.close()
         if conn:
             conn.close()
-
-if __name__ == "__main__":
-    create_materialized_view_unpivoted_sales()

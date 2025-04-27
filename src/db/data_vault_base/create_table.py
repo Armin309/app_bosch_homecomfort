@@ -149,6 +149,3 @@ def create_all_tables():
     conn.close()
     print("🔒 Verbindung geschlossen.")
 
-if __name__ == "__main__":
-    create_all_tables()
-

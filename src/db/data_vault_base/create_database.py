@@ -37,6 +37,3 @@ def create_database():
 
     except Exception as e:
         print("Fehler beim Erstellen der Datenbank:", e)
-
-if __name__ == "__main__":
-    create_database()

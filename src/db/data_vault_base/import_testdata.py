@@ -135,20 +135,21 @@ def insert_data(conn, data):
     finally:
         cursor.close()
 
-def main():
-    # Hole den Pfad zur CSV-Datei (2 Ebenen nach oben und dann in den data-Ordner)
-    file_path = Path(__file__).resolve().parents[3] / 'data' / 'sales_data.csv'
-    # CSV-Daten einlesen
+def main(file_path):
+    # Establish database connection
+    conn = create_connection()
+    if not conn:
+        print("Database connection failed. Exiting.")
+        return
+
+    # Load CSV data
+    print(f"Loading data from {file_path}...")
     data = load_csv_data(file_path)
 
-    # Verbindung zur Datenbank aufbauen
-    conn = create_connection()
+    # Insert data into the database
+    print("Inserting data into the database...")
+    insert_data(conn, data)
 
-    if conn:
-        # Daten in die Tabellen einfügen
-        insert_data(conn, data)
-        print("✅ Alle Daten wurden erfolgreich importiert!")
-        conn.close()
-
-if __name__ == '__main__':
-    main()
+    # Close the connection
+    conn.close()
+    print("Data import completed successfully.")

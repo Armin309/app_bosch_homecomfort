@@ -100,6 +100,3 @@ def create_sales_summary_helper_table():
             cursor.close()
         if conn:
             conn.close()
-
-if __name__ == "__main__":
-    create_sales_summary_helper_table()
