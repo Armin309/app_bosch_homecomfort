@@ -3,7 +3,7 @@ import os
 import csv
 import psycopg2
 from datetime import datetime
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 from file_interaction.source_config import SFDE_PASSWORD, SFDE_USERNAME, SFDE_DATABASE, SFDE_HOST, SFDE_PORT
 from pathlib import Path
 
@@ -137,7 +137,7 @@ def insert_data(conn, data):
 
 def main():
     # Hole den Pfad zur CSV-Datei (2 Ebenen nach oben und dann in den data-Ordner)
-    file_path = Path(__file__).resolve().parents[2] / 'data' / 'sales_data.csv'
+    file_path = Path(__file__).resolve().parents[3] / 'data' / 'sales_data.csv'
     # CSV-Daten einlesen
     data = load_csv_data(file_path)
 

@@ -1,13 +1,13 @@
 import sys
 import os
-# Add parent directory to path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Add one more parent directory to path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 import psycopg2
 from file_interaction.source_config import SFDE_USERNAME, SFDE_PASSWORD, SFDE_DATABASE, SFDE_HOST, SFDE_PORT
 
-def create_materialized_view_sales_summary():
+def create_sales_summary_helper_table():
     """
-    Creates a materialized view for sales summary.
+    Creates a helper table for sales summary and populates it with pre-aggregated data.
     """
     try:
         conn = psycopg2.connect(
@@ -20,8 +20,28 @@ def create_materialized_view_sales_summary():
         conn.autocommit = True
         cursor = conn.cursor()
 
+        # Create the helper table
         cursor.execute("""
-        CREATE MATERIALIZED VIEW IF NOT EXISTS public.sales_summary_mv AS
+        CREATE TABLE IF NOT EXISTS public.sales_summary_table (
+            distribution_channel CHAR(50),
+            sales_organization CHAR(50),
+            billing_doc_date CHAR(50),
+            sales_document CHAR(50),
+            sales_group CHAR(50),
+            material_id INT,
+            material_text CHAR(50),
+            customer_no CHAR(50),
+            customer_name CHAR(50),
+            PALEDGER CHAR(50),
+            Quantity NUMERIC,
+            TGS NUMERIC,
+            TNS NUMERIC
+        );
+        """)
+
+        # Populate the helper table
+        cursor.execute("""
+        INSERT INTO public.sales_summary_table
         SELECT 
             sat_sale_doc_attributes.distribution_channel,
             sat_sale_doc_attributes.sales_organization,
@@ -70,10 +90,10 @@ def create_materialized_view_sales_summary():
             sat_sale_doc_attributes.PALEDGER;
         """)
 
-        print("✅ Materialized view 'sales_summary_mv' created successfully.")
+        print("✅ Helper table 'sales_summary_table' created and populated successfully.")
 
     except Exception as e:
-        print(f"❌ Error creating materialized view: {e}")
+        print(f"❌ Error creating helper table: {e}")
 
     finally:
         if cursor:
@@ -82,4 +102,4 @@ def create_materialized_view_sales_summary():
             conn.close()
 
 if __name__ == "__main__":
-    create_materialized_view_sales_summary()
+    create_sales_summary_helper_table()

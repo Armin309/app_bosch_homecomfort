@@ -1,7 +1,7 @@
 import sys
 import os
-# Add parent directory to path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Add one more parent directory to path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from file_interaction.source_config import SFDE_PASSWORD, SFDE_USERNAME, SFDE_DATABASE, SFDE_HOST, SFDE_PORT

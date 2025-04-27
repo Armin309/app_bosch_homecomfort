@@ -3,8 +3,8 @@ import os
 import psycopg2
 from psycopg2 import sql
 
-# Add parent directory to path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Add one more parent directory to path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 from file_interaction.source_config import (
     SFDE_USERNAME,
