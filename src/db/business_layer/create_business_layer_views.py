@@ -25,7 +25,8 @@ def create_business_layer_views():
         conn.autocommit = True
         cursor = conn.cursor()
 
-        # Define the time range (5 years back from today)############## The part below is legacy from testing
+        # Define the time range (5 years back from today)############## The part below regarding end_date, start_date 
+        # is legacy from testing
         # and is not used as it is not the standard business use case to filter history date for a range
         end_date = datetime.today()
         start_date = end_date - timedelta(days=5*365)
