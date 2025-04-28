@@ -42,7 +42,7 @@ def create_business_layer_views():
                     AND s.load_date = (
                         SELECT MAX(tmp.load_date)
                         FROM public.sat_customer tmp
-                        WHERE tmp.customer_no_HK = s.customer_no_HK
+                        WHERE tmp.customer_no_HK = h.customer_no_HK
                     );
             """,
             "material_DIM": """
@@ -54,7 +54,7 @@ def create_business_layer_views():
                     AND s.load_date = (
                         SELECT MAX(tmp.load_date)
                         FROM public.sat_material tmp
-                        WHERE tmp.material_id_HK = s.material_id_HK
+                        WHERE tmp.material_id_HK = h.material_id_HK
                     );
             """,
             "sales_doc_DIM": """
@@ -66,7 +66,7 @@ def create_business_layer_views():
                     AND s.load_date = (
                         SELECT MAX(tmp.load_date)
                         FROM public.sat_sale_doc_attributes tmp
-                        WHERE tmp.sales_doc_HK = s.sales_doc_HK
+                        WHERE tmp.sales_doc_HK = h.sales_doc_HK
                     );
             """,
             "transaction_FAC": """
@@ -84,7 +84,7 @@ def create_business_layer_views():
                     AND s.load_date = (
                         SELECT MAX(tmp.load_date)
                         FROM public.sat_transaction_VVR tmp
-                        WHERE tmp.transaction_id_HK = s.transaction_id_HK
+                        WHERE tmp.transaction_id_HK = l.transaction_id_HK
                     )
                 GROUP BY l.material_id, l.customer_no, l.sales_document;
             """
