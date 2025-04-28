@@ -1,6 +1,6 @@
-# App Bosch HomeComfort
+# Data Vault Tool
 
-This tool is designed to set up and manage a PostgreSQL database for Bosch HomeComfort, including creating tables, importing test data, and generating helper tables and materialized views for business analysis.
+This tool is designed to set up and manage a PostgreSQL database, including creating tables, importing test data, and generating helper tables and materialized views for business analysis.
 
 ## Features
 - Create and initialize a PostgreSQL database.
