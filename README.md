@@ -17,12 +17,12 @@ This tool is designed to set up and manage a PostgreSQL database, including crea
 ### 1. Set Up Python Environment
 1. Navigate to the project directory:
    ```bash
-   cd app_bosch_homecomfort
+   cd data_vault_tool
    ```
 2. Create and activate the Conda environment:
    ```bash
    conda env create -f env/environment.yaml
-   conda activate app_bosch_homecomfort_env
+   conda activate data_vault_tool_env
    ```
 
 ### 2. Install PostgreSQL
