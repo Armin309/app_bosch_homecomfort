@@ -8,7 +8,7 @@ This tool is designed to set up and manage a PostgreSQL database, including crea
 - Generate helper tables and materialized views for advanced data analysis.
 
 ## Prerequisites
-1. **Python Environment**: Install Python 3.9 and Conda.
+1. **Python Environment**: Install Python and Conda.
 2. **PostgreSQL**: Install PostgreSQL and ensure it is running.
 3. **Database Credentials**: Update the `config.ini` file with your PostgreSQL credentials.
 
