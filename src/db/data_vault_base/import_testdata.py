@@ -27,7 +27,7 @@ def insert_data(conn, data):
     try:
         for i, row in enumerate(data):
             # print(f"🔄 Inserting row {i + 1}: {row}")
-
+##############LOAD DATE SHOULD BE THE CURRENT TIMESTAMP ALSO, HERE JUST IMPORTED FROM THE CSV 
             # Insert in Hub Customer
             cursor.execute("""
                 INSERT INTO public.hub_customer (customer_no, load_date, record_src)
