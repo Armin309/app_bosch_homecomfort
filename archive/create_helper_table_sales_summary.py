@@ -1,9 +1,9 @@
 import sys
 import os
 # Add one more parent directory to path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import psycopg2
-from file_interaction.source_config import SFDE_USERNAME, SFDE_PASSWORD, SFDE_DATABASE, SFDE_HOST, SFDE_PORT
+from src.file_interaction.source_config import SFDE_USERNAME, SFDE_PASSWORD, SFDE_DATABASE, SFDE_HOST, SFDE_PORT
 
 def create_sales_summary_helper_table():
     """
@@ -25,7 +25,7 @@ def create_sales_summary_helper_table():
         CREATE TABLE IF NOT EXISTS public.sales_summary_table (
             distribution_channel CHAR(50),
             sales_organization CHAR(50),
-            billing_doc_date CHAR(50),
+            billing_doc_date DATE,
             sales_document CHAR(50),
             sales_group CHAR(50),
             material_id INT,
