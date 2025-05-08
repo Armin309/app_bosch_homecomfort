@@ -5,7 +5,7 @@ This tool is designed to set up and manage a PostgreSQL database, including crea
 ## Features
 - Create and initialize a PostgreSQL database.
 - Import test data from CSV files.
-- Generate helper tables and materialized views for advanced data analysis.
+- Generate tables and views for advanced data analysis.
 
 ## Prerequisites
 1. **Python Environment**: Install Python and Conda.
